@@ -6,7 +6,7 @@ const list = document.getElementById('list');
 const form = document.getElementById('form');
 const text = document.getElementById('text');
 const amount = document.getElementById('amount');
-
+let html = '';
 let transactions=[];
 
 function init(){
@@ -20,8 +20,13 @@ function addDataToList(transactions){
     const item=document.createElement('li');
     result = formatNumber(Math.abs(transactions.amount));
     item.classList.add(status);
-    item.innerHTML=`${transactions.text}<span>${symbol}${result}</span>
-    <button class="delete-btn" onclick="removeData(${transactions.id})">x</button>`;
+    if (status == 'plus') {
+        html=`<div class="p-2 flex justify-between border border-r-4 border-r-green-400">`;
+    }else if(status == 'minus'){
+        html=`<div class="p-2 flex justify-between border border-r-4 border-r-red-400">`;
+    } 
+    item.innerHTML=`${html}${transactions.text}<span >${symbol}${result}</span>
+    <button class="delete-btn" onclick="removeData(${transactions.id})">x</button></div>`;
     list.appendChild(item)
 }
 function formatNumber(num) {
